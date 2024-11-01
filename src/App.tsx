@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+    function deleteTodo(id: string) {
+    client.models.Todo.delete({ id })
+  }
+
 
 const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
-  useEffect(() => {
+          onClick={() => deleteTodo(todo.id)}
     client.models.Todo.observeQuery().subscribe({
       next: (data) => setTodos([...data.items]),
     });
